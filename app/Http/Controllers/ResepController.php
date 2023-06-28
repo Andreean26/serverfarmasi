@@ -7,7 +7,7 @@ use App\Models\resep_obat;
 
 class ResepController extends Controller
 {
-    //Make REST API HTTP Request
+    
     public function index()
     {
         $resep_obat = resep_obat::all();

@@ -7,7 +7,7 @@ use App\Models\pasien;
 
 class PasienController extends Controller
 {
-    //Make REST API HTTP Request
+    
     public function index()
     {
         $pasien = pasien::all();

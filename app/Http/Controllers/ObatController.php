@@ -7,7 +7,7 @@ use App\Models\obat;
 
 class ObatController extends Controller
 {
-    //Make REST API HTTP Request
+    
     public function index()
     {
         $obat = obat::all();
@@ -83,6 +83,6 @@ class ObatController extends Controller
             'message' => 'obat berhasil di hapus',
             'data' => $obat
         ], 200);
-    } 
+    }
 
 }
