@@ -32,8 +32,8 @@ class TransaksiController extends Controller
     public function store(Request  $request)
     {
         $transaksi = transaksi::create([
-            'obat_id' => $request->obat_id,
             'pasien_id' => $request->pasien_id,
+            'total_harga' => $request->total_harga,
             'keterangan' => $request->keterangan,
         ]);
 
@@ -55,8 +55,8 @@ class TransaksiController extends Controller
     public function update(Request $request, transaksi $transaksi)
     {
         $update = $transaksi->update([
-            'obat_id' => $request->obat_id,
             'pasien_id' => $request->pasien_id,
+            'total_harga' => $request->total_harga,
             'keterangan' => $request->keterangan,
         ]);
 
