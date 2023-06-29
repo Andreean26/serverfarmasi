@@ -5,29 +5,30 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\User;
-use Illuminate\Support\Facades\Hash;
+
 
 class SessionController extends Controller
 {
     //   Make REST API HTTP request to Login and logout user
+
+
     public function login(Request $request)
     {
         $request->validate([
             'email' => 'required|string|email',
             'password' => 'required|string',
         ]);
-        //Check if user exists
-        $credentials = $request->only('email', 'password');
-        $token = Auth::attempt($credentials);
 
-        if (!$token) {
+        $credentials = $request->only('email', 'password');
+        if (!Auth::attempt($credentials)) {
             return response()->json([
                 'message' => 'Unauthorized',
             ], 401);
         }
 
         $user = Auth::user();
+        $token = $user->createToken('API Token')->plainTextToken;
+
         return response()->json([
             'user' => $user,
             'authorization' => [
@@ -38,12 +39,18 @@ class SessionController extends Controller
         ]);
     }
 
-    // logout
-    public function logout()
-    {
-        Auth::logout();
-        return response()->json([
-            'message' => 'User logged out successfully',
-        ]);
-    }
+
+
+
+    // logout..
+
+public function logout(Request $request)
+{
+    Auth::guard('web')->logout();
+
+    return response()->json([
+        'message' => 'Logged out successfully',
+    ], 200);
+}
+
 }
