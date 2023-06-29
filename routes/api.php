@@ -4,7 +4,12 @@ use App\Http\Controllers\ObatController;
 use App\Http\Controllers\PasienController;
 use App\Http\Controllers\ResepController;
 use App\Http\Controllers\TransaksiController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\SessionController;
+use App\Http\Controllers\Auth\ResetController;
+
 use Illuminate\Http\Request;
+use Illuminate\Routing\RouteRegistrar;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,10 +25,23 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+
+
+
 });
 
-//
-Route::apiResource('obat', ObatController::class);
-Route::apiResource('pasien', PasienController::class);
-Route::apiResource('resep_obat', ResepController::class);
-Route::apiResource('transaksi', TransaksiController::class);
+Route::post('/login', [SessionController::class, 'login']);
+Route::post('/register', [RegisterController::class, 'register']);
+
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::get('/user', function (Request $request) {
+        return $request->user();
+
+    });
+    Route::post('/logout', [SessionController::class, 'logout']);
+
+    Route::apiResource('obat', ObatController::class);
+    Route::apiResource('pasien', PasienController::class);
+    Route::apiResource('resep_obat', ResepController::class);
+    Route::apiResource('transaksi', TransaksiController::class);
+});
