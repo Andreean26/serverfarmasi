@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('pasien_id');
             $table->foreign('pasien_id')->references('id')->on('resep_obat');
-            $table->string('total_harga');
+            $table->integer('total_harga');
             $table->timestamps();
         });
 

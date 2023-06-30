@@ -15,8 +15,8 @@ return new class extends Migration
         Schema::create('obat', function (Blueprint $table) {
             $table->id();
             $table->string('nama_obat');
-            $table->string('harga_obat');
-            $table->string('stok_obat');
+            $table->integer('harga_obat');
+            $table->integer('stok_obat');
             $table->timestamps();
         });
     }
